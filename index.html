@@ -356,6 +356,34 @@
             opacity: 1;
         }
 
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .footer a:hover {
+            color: #ff9ff3;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer p {
+            margin-top: 15px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
+
         @media (max-width: 768px) {
             .timer-container {
                 flex-wrap: wrap;
@@ -439,6 +467,11 @@
         </div>
 
         <div class="message" id="message"></div>
+
+        <footer class="footer">
+            <a href="https://blog.naver.com/biodad" target="_blank" rel="noopener noreferrer">blog.naver.com/biodad</a>
+            <p>&copy; 2026 biodad. All rights reserved.</p>
+        </footer>
     </div>
 
     <script>
