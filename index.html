@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>퇴근 카운트다운</title>
+    <title>퇴근 & 육아 카운트다운</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -23,6 +23,11 @@
             color: #fff;
             overflow-x: hidden;
             padding: 20px 0;
+            transition: background 0.5s ease;
+        }
+
+        body.parenting-mode {
+            background: linear-gradient(135deg, #1a0c1e 0%, #2d1a3e 50%, #4e1b4e 100%);
         }
 
         /* 배경 애니메이션 */
@@ -77,6 +82,7 @@
             opacity: 0.4;
             animation: orbFloat 8s ease-in-out infinite;
             z-index: 0;
+            transition: background 0.5s ease;
         }
 
         .glow-orb.orb1 {
@@ -106,6 +112,18 @@
             animation-delay: -2s;
         }
 
+        body.parenting-mode .glow-orb.orb1 {
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+        }
+
+        body.parenting-mode .glow-orb.orb2 {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+        }
+
+        body.parenting-mode .glow-orb.orb3 {
+            background: linear-gradient(135deg, #ff9ff3, #a55eea);
+        }
+
         @keyframes orbFloat {
             0%, 100% { transform: translate(0, 0) scale(1); }
             33% { transform: translate(30px, -30px) scale(1.1); }
@@ -133,6 +151,45 @@
             z-index: 100;
         }
 
+        /* 탭 스타일 */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .tab-btn.active.parenting {
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+            box-shadow: 0 10px 30px rgba(255, 159, 243, 0.3);
+        }
+
         .emoji {
             font-size: 5rem;
             margin-bottom: 20px;
@@ -154,6 +211,13 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-shadow: 0 0 60px rgba(255, 255, 255, 0.3);
+        }
+
+        .title.parenting {
+            background: linear-gradient(135deg, #fff 0%, #ff9ff3 50%, #ffeaa7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .subtitle {
@@ -210,6 +274,13 @@
             animation: glow 3s ease-in-out infinite;
         }
 
+        .time-value.parenting {
+            background: linear-gradient(135deg, #ff9ff3 0%, #f368e0 50%, #ffeaa7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         @keyframes glow {
             0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.5)); }
             50% { filter: drop-shadow(0 0 40px rgba(255, 159, 243, 0.8)); }
@@ -258,6 +329,11 @@
             transition: width 1s ease;
             animation: shimmer 3s ease-in-out infinite;
             position: relative;
+        }
+
+        .progress-fill.parenting {
+            background: linear-gradient(90deg, #ff9ff3, #f368e0, #ffeaa7, #fdcb6e);
+            background-size: 300% 100%;
         }
 
         .progress-fill::after {
@@ -314,6 +390,10 @@
             color: #54a0ff;
         }
 
+        .message.parenting {
+            color: #ff9ff3;
+        }
+
         @keyframes celebrate {
             from { transform: scale(1) rotate(-1deg); }
             to { transform: scale(1.02) rotate(1deg); }
@@ -340,7 +420,7 @@
             }
         }
 
-        /* 퇴근 축하 화면 */
+        /* 축하 화면 */
         .celebration-overlay {
             position: fixed;
             top: 0;
@@ -356,6 +436,10 @@
 
         .celebration-overlay.active {
             opacity: 1;
+        }
+
+        .celebration-overlay.parenting {
+            background: radial-gradient(ellipse at center, rgba(255, 159, 243, 0.15) 0%, transparent 70%);
         }
 
         .footer {
@@ -387,6 +471,15 @@
         }
 
         @media (max-width: 768px) {
+            .tab-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tab-btn {
+                width: 200px;
+            }
+
             .timer-container {
                 flex-wrap: wrap;
                 gap: 15px;
@@ -419,6 +512,11 @@
                 font-size: 0.9rem;
                 padding: 10px 15px;
             }
+
+            .message {
+                font-size: 1.2rem;
+                padding: 20px 25px;
+            }
         }
     </style>
 </head>
@@ -440,9 +538,19 @@
     <div class="current-time" id="currentTime"></div>
 
     <div class="container">
+        <!-- 탭 버튼 -->
+        <div class="tab-container">
+            <button class="tab-btn active" id="workTab" onclick="switchTab('work')">
+                💼 퇴근 카운트다운
+            </button>
+            <button class="tab-btn" id="parentingTab" onclick="switchTab('parenting')">
+                👶 육아 출근
+            </button>
+        </div>
+
         <div class="emoji" id="emoji">💼</div>
-        <h1 class="title">퇴근 카운트다운</h1>
-        <p class="subtitle">TARGET : 18:00</p>
+        <h1 class="title" id="title">퇴근 카운트다운</h1>
+        <p class="subtitle" id="subtitle">TARGET : 18:00</p>
 
         <div class="timer-container">
             <div class="time-block">
@@ -477,13 +585,59 @@
     </div>
 
     <script>
+        // 설정
         const WORK_START_HOUR = 9;
         const WORK_END_HOUR = 18;
+        const PARENTING_START_HOUR = 18;
+        const PARENTING_END_HOUR = 21; // 아이 취침 시간
+
         let confettiInterval = null;
         let isWorkDone = false;
+        let isParentingDone = false;
+        let currentTab = 'work';
+
+        // 육아 응원 메시지
+        const parentingMessages = {
+            early: [
+                '육아 출근! 오늘도 사랑으로 시작해요 💕',
+                '퇴근했지만 진짜 일이 시작됐죠? 파이팅! 💪',
+                '아이와 함께하는 소중한 시간이에요 🌟',
+                '세상에서 가장 중요한 일, 육아 시작! 👨‍👩‍👧'
+            ],
+            middle: [
+                '밥 먹이고, 씻기고... 대단해요! 🍚🛁',
+                '힘들어도 아이 웃음에 힐링되죠? 😊',
+                '당신은 최고의 부모예요! 🏆',
+                '오늘 하루도 정말 고생 많아요 💝',
+                '잠시 숨 고르기! 당신도 소중해요 ☕'
+            ],
+            almost: [
+                '조금만 더! 취침 시간이 다가와요 🌙',
+                '오늘 하루 정말 수고했어요! 💫',
+                '곧 나만의 시간이 올 거예요! ✨',
+                '마지막 힘내기! 거의 다 왔어요! 🎯'
+            ],
+            done: [
+                '육아 퇴근! 오늘도 완벽했어요! 🎉',
+                '드디어 나만의 시간! 푹 쉬세요 💆',
+                '최고의 부모상 드립니다! 🏅',
+                '아이도 당신도 오늘 수고했어요 💕'
+            ],
+            waiting: [
+                '아직 퇴근 전이에요! 조금만 기다려요 ⏰',
+                '회사 일 먼저 끝내고 오세요~ 💼',
+                '육아 출근은 18시부터! 🕕'
+            ]
+        };
+
+        function getRandomMessage(messages) {
+            return messages[Math.floor(Math.random() * messages.length)];
+        }
 
         function createConfetti() {
-            const colors = ['#ff6b6b', '#feca57', '#ff9ff3', '#54a0ff', '#5cd85c', '#a55eea'];
+            const colors = currentTab === 'work'
+                ? ['#ff6b6b', '#feca57', '#ff9ff3', '#54a0ff', '#5cd85c', '#a55eea']
+                : ['#ff9ff3', '#f368e0', '#ffeaa7', '#fdcb6e', '#fab1a0', '#fd79a8'];
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
             confetti.style.left = Math.random() * 100 + 'vw';
@@ -499,7 +653,9 @@
 
         function startCelebration() {
             if (confettiInterval) return;
-            document.getElementById('celebrationOverlay').classList.add('active');
+            const overlay = document.getElementById('celebrationOverlay');
+            overlay.classList.add('active');
+            if (currentTab === 'parenting') overlay.classList.add('parenting');
             confettiInterval = setInterval(createConfetti, 100);
             setTimeout(() => {
                 clearInterval(confettiInterval);
@@ -512,14 +668,55 @@
                 clearInterval(confettiInterval);
                 confettiInterval = null;
             }
-            document.getElementById('celebrationOverlay').classList.remove('active');
+            const overlay = document.getElementById('celebrationOverlay');
+            overlay.classList.remove('active');
+            overlay.classList.remove('parenting');
         }
 
-        function updateTimer() {
-            const now = new Date();
+        function switchTab(tab) {
+            currentTab = tab;
+            const workBtn = document.getElementById('workTab');
+            const parentingBtn = document.getElementById('parentingTab');
+            const title = document.getElementById('title');
+            const subtitle = document.getElementById('subtitle');
+            const timeValues = document.querySelectorAll('.time-value');
+            const progressFill = document.getElementById('progressFill');
 
-            document.getElementById('currentTime').textContent =
-                now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            stopCelebration();
+            isWorkDone = false;
+            isParentingDone = false;
+
+            if (tab === 'work') {
+                document.body.classList.remove('parenting-mode');
+                workBtn.classList.add('active');
+                workBtn.classList.remove('parenting');
+                parentingBtn.classList.remove('active');
+                parentingBtn.classList.remove('parenting');
+                title.classList.remove('parenting');
+                timeValues.forEach(el => el.classList.remove('parenting'));
+                progressFill.classList.remove('parenting');
+            } else {
+                document.body.classList.add('parenting-mode');
+                parentingBtn.classList.add('active', 'parenting');
+                workBtn.classList.remove('active');
+                title.classList.add('parenting');
+                timeValues.forEach(el => el.classList.add('parenting'));
+                progressFill.classList.add('parenting');
+            }
+
+            updateTimer();
+        }
+
+        function updateWorkTimer(now) {
+            const title = document.getElementById('title');
+            const subtitle = document.getElementById('subtitle');
+            const emoji = document.getElementById('emoji');
+            const message = document.getElementById('message');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+
+            title.textContent = '퇴근 카운트다운';
+            subtitle.textContent = 'TARGET : 18:00';
 
             const endTime = new Date(now);
             endTime.setHours(WORK_END_HOUR, 0, 0, 0);
@@ -528,12 +725,7 @@
             startTime.setHours(WORK_START_HOUR, 0, 0, 0);
 
             const diff = endTime - now;
-            const emoji = document.getElementById('emoji');
-            const message = document.getElementById('message');
-            const progressFill = document.getElementById('progressFill');
-            const progressText = document.getElementById('progressText');
 
-            // 퇴근 시간 이후
             if (diff <= 0) {
                 document.getElementById('hours').textContent = '00';
                 document.getElementById('minutes').textContent = '00';
@@ -556,7 +748,6 @@
             isWorkDone = false;
             stopCelebration();
 
-            // 출근 시간 이전
             if (now < startTime) {
                 const beforeWork = startTime - now;
                 const bHours = Math.floor(beforeWork / (1000 * 60 * 60));
@@ -576,7 +767,6 @@
                 return;
             }
 
-            // 근무 중
             const hours = Math.floor(diff / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
@@ -616,6 +806,115 @@
                 emoji.textContent = '💼';
                 message.className = 'message working';
                 message.innerHTML = '오늘도 화이팅! 천천히 가도 괜찮아요 🌤️';
+            }
+        }
+
+        function updateParentingTimer(now) {
+            const title = document.getElementById('title');
+            const subtitle = document.getElementById('subtitle');
+            const emoji = document.getElementById('emoji');
+            const message = document.getElementById('message');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+
+            title.textContent = '육아 출근';
+            subtitle.textContent = 'TARGET : 21:00 (취침 시간)';
+
+            const startTime = new Date(now);
+            startTime.setHours(PARENTING_START_HOUR, 0, 0, 0);
+
+            const endTime = new Date(now);
+            endTime.setHours(PARENTING_END_HOUR, 0, 0, 0);
+
+            // 육아 시작 전 (18시 이전)
+            if (now < startTime) {
+                const beforeParenting = startTime - now;
+                const bHours = Math.floor(beforeParenting / (1000 * 60 * 60));
+                const bMinutes = Math.floor((beforeParenting % (1000 * 60 * 60)) / (1000 * 60));
+                const bSeconds = Math.floor((beforeParenting % (1000 * 60)) / 1000);
+
+                document.getElementById('hours').textContent = String(bHours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(bMinutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(bSeconds).padStart(2, '0');
+
+                emoji.textContent = '💼';
+                message.className = 'message before-work';
+                message.innerHTML = getRandomMessage(parentingMessages.waiting);
+
+                progressFill.style.width = '0%';
+                progressText.textContent = '🕕 육아 출근까지 남은 시간';
+
+                isParentingDone = false;
+                stopCelebration();
+                return;
+            }
+
+            const diff = endTime - now;
+
+            // 육아 끝 (21시 이후)
+            if (diff <= 0) {
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+
+                emoji.textContent = '🌙';
+                message.className = 'message done';
+                message.innerHTML = getRandomMessage(parentingMessages.done);
+
+                progressFill.style.width = '100%';
+                progressText.textContent = '🎊 육아 퇴근! 이제 나만의 시간~ 🎊';
+
+                if (!isParentingDone) {
+                    isParentingDone = true;
+                    startCelebration();
+                }
+                return;
+            }
+
+            isParentingDone = false;
+            stopCelebration();
+
+            // 육아 중
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+            const totalParentingTime = endTime - startTime;
+            const elapsedTime = now - startTime;
+            const progress = Math.min(100, Math.max(0, (elapsedTime / totalParentingTime) * 100));
+
+            progressFill.style.width = progress.toFixed(1) + '%';
+            progressText.textContent = `👶 육아 ${progress.toFixed(1)}% 완료`;
+
+            if (hours === 0 && minutes < 30) {
+                emoji.textContent = '🌙';
+                message.className = 'message parenting';
+                message.innerHTML = getRandomMessage(parentingMessages.almost);
+            } else if (hours < 1) {
+                emoji.textContent = '🛁';
+                message.className = 'message parenting';
+                message.innerHTML = getRandomMessage(parentingMessages.middle);
+            } else {
+                emoji.textContent = '👶';
+                message.className = 'message parenting';
+                message.innerHTML = getRandomMessage(parentingMessages.early);
+            }
+        }
+
+        function updateTimer() {
+            const now = new Date();
+
+            document.getElementById('currentTime').textContent =
+                now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            if (currentTab === 'work') {
+                updateWorkTimer(now);
+            } else {
+                updateParentingTimer(now);
             }
         }
 
